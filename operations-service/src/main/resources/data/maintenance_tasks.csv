@@ -1,0 +1,23 @@
+# SAMPLE maintenance and repair tasks. asset_id = id in assets.csv.
+# days_from_today = scheduled date (0 = today, -3 = three days ago). completed_days_from_today is empty while the task is not DONE.
+asset_id,type,description,days_from_today,completed_days_from_today,technician,cost,status
+7,REPAIR,Motor winding burnt on pump set 2; zone running on the standby pump,-3,,"TWAD Board, Madurai Division",185000,IN_PROGRESS
+8,PREVENTIVE,Air-valve servicing along the 12 km stretch,4,,"TWAD Board, Madurai Division",42000,SCHEDULED
+15,REPAIR,Joint leak near Palayamkottai bus stand,-1,,Tirunelveli Corporation Water Works,65000,SCHEDULED
+16,REPAIR,Burst main at the Arcot Road - Vadapalani junction,-2,,CMWSSB Depot 10 crew,240000,IN_PROGRESS
+6,PREVENTIVE,"RO membrane replacement, train 3",-6,,Plant O&M contractor,1250000,IN_PROGRESS
+13,REPAIR,Inlet valve seepage and slab cracks,2,,Erode Corporation Engineering,90000,IN_PROGRESS
+21,REPAIR,"Gate valve spindle broken, valve stuck half-open",1,,CMWSSB Depot 13 crew,28000,SCHEDULED
+2,PREVENTIVE,Filter bed backwash and media top-up,7,,CMWSSB Plant O&M,75000,SCHEDULED
+10,PREVENTIVE,Pressure test and cathodic protection check,10,,"TWAD Board, Salem Division",55000,SCHEDULED
+24,PREVENTIVE,Pump alignment and bearing greasing,5,,"TWAD Board, Vellore Division",18000,SCHEDULED
+1,PREVENTIVE,Clarifier sludge removal,-20,-19,CMWSSB Plant O&M,160000,DONE
+3,PREVENTIVE,Chlorinator servicing,-15,-15,CMWSSB Plant O&M,22000,DONE
+11,REPAIR,Starter panel replaced after lightning surge,-12,-11,"TWAD Board, Salem Division",48000,DONE
+12,PREVENTIVE,Annual pump overhaul,-25,-22,"TWAD Board, Erode Division",210000,DONE
+14,PREVENTIVE,Intake screen cleaning,-9,-9,Tirunelveli Corporation Water Works,15000,DONE
+17,REPAIR,VFD fault on booster pump 1,-8,-7,CMWSSB Depot 9 crew,36000,DONE
+19,PREVENTIVE,Sump desilting,-18,-17,CMWSSB Depot 7 crew,30000,DONE
+22,REPAIR,Valve chamber leak,-6,-5,CMWSSB Depot 1 crew,26000,DONE
+25,PREVENTIVE,Tank cleaning and disinfection,-14,-14,Nagercoil Corporation,24000,DONE
+9,PREVENTIVE,Tank cleaning and disinfection,-30,-30,Madurai Corporation,21000,DONE

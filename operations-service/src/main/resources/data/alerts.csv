@@ -1,0 +1,5 @@
+# SAMPLE alerts, as staff would write them. days_ago: 0 = created when the data is loaded.
+title,message,severity,created_by,days_ago
+Kodambakkam supply suspended,Arcot Road main burst near Vadapalani; CMWSSB Depot 10 crew on site. Supply to Kodambakkam (Zone 10) suspended until the repair is done.,MEDIUM,Karthik Selvam,0
+Veeranam water quality,"Latest test at Veeranam shows BOD 8.0 mg/L, above the CPCB limit of 3 mg/L. Increase treatment at Vadakuthu WTP and retest.",HIGH,Karthik Selvam,0
+Vaigai below 15 %,"Vaigai reservoir is at 14.4 % (WRD bulletin, 10 Oct 2026). Madurai Central supply reduced to 60 % of demand; plan tanker support for the hospital request.",HIGH,Anitha Raman,0

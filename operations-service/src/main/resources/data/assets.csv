@@ -1,0 +1,30 @@
+# Infrastructure. Loaded by operations-service (config/CsvDataLoader) into an EMPTY assets table on first start.
+# Treatment plant names and capacities are the real CMWSSB plants; everything else is SAMPLE.
+# zone_id = supply-service zone id (supply_zones.csv), source_id = water-service source id (water_sources.csv).
+# id is only used by maintenance_tasks.csv and complaints.csv; keep the order.
+id,name,type,zone_id,source_id,install_date,condition,status
+1,Puzhal Water Treatment Plant (300 MLD),TREATMENT_PLANT,3,16,1996-04-01,GOOD,WORKING
+2,Chembarambakkam Water Treatment Plant (530 MLD),TREATMENT_PLANT,5,18,2007-04-01,GOOD,WORKING
+3,"Vadakuthu Water Treatment Plant, Veeranam (180 MLD)",TREATMENT_PLANT,7,19,2004-04-01,FAIR,WORKING
+4,Kilpauk Water Treatment Plant (270 MLD),TREATMENT_PLANT,3,16,1914-04-01,FAIR,WORKING
+5,Nemmeli Desalination Plant (150 MLD),TREATMENT_PLANT,8,,2013-04-01,GOOD,WORKING
+6,Minjur Desalination Plant (100 MLD),TREATMENT_PLANT,1,,2010-04-01,FAIR,UNDER_REPAIR
+7,"Vaigai Head Works Pumping Station, Pump Set 2",PUMP,9,5,2009-04-01,POOR,FAULTY
+8,Pannaipatti - Madurai Trunk Main (1000 mm),PIPELINE,9,5,2012-04-01,FAIR,WORKING
+9,Arapalayam Overhead Tank,TANK,9,,1998-04-01,FAIR,WORKING
+10,Mettur - Salem Feeder Main,PIPELINE,10,1,2005-04-01,FAIR,WORKING
+11,Kondalampatti Pumping Station,PUMP,10,,2011-04-01,GOOD,WORKING
+12,Bhavanisagar Head Works Pump House,PUMP,11,2,2016-04-01,GOOD,WORKING
+13,Surampatti Overhead Tank,TANK,11,,2001-04-01,POOR,UNDER_REPAIR
+14,Papanasam Intake Well and Pumps,PUMP,12,6,2008-04-01,GOOD,WORKING
+15,Palayamkottai Feeder Main (600 mm),PIPELINE,12,6,1994-04-01,POOR,FAULTY
+16,Arcot Road Distribution Main (600 mm),PIPELINE,6,18,1989-04-01,POOR,UNDER_REPAIR
+17,Teynampet Booster Pumping Station,PUMP,5,,2003-04-01,GOOD,WORKING
+18,Anna Nagar Water Distribution Station,TANK,3,,1985-04-01,FAIR,WORKING
+19,Ambattur Pumping Station,PUMP,4,14,2012-04-01,FAIR,WORKING
+20,Madhavaram Sluice Valve Cluster,VALVE,2,,2006-04-01,FAIR,WORKING
+21,"LB Road Gate Valve, Adyar",VALVE,7,,1999-04-01,POOR,FAULTY
+22,Tiruvottiyur High Road Feeder Main,PIPELINE,1,16,2008-04-01,GOOD,WORKING
+23,"OMR Trunk Main, Sholinganallur",PIPELINE,8,17,2015-04-01,GOOD,WORKING
+24,"Sathanur Head Works, Tiruvannamalai CWSS",PUMP,13,11,2010-04-01,GOOD,WORKING
+25,"Krishnankoil Overhead Tank, Nagercoil",TANK,14,,2004-04-01,FAIR,WORKING

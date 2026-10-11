@@ -1,0 +1,29 @@
+# SAMPLE complaints and water-supply requests (names and phone numbers are made up).
+# zone_id = supply-service zone id, asset_id = id in assets.csv (empty = no asset).
+# created_hours_ago / resolved_hours_ago are counted back from the moment the data is loaded.
+zone_id,asset_id,category,description,citizen_name,phone,address,priority,status,resolution_note,created_hours_ago,resolved_hours_ago
+9,7,NO_SUPPLY,No water for two days in North Masi Street,M. Arumugam,9000000101,"14, North Masi Street, Madurai",HIGH,OPEN,,70,
+9,,LOW_PRESSURE,"Very low pressure, water comes for only 20 minutes",S. Kavitha,9000000102,"3/22 Simmakkal, Madurai",MEDIUM,OPEN,,30,
+9,,SUPPLY_REQUEST,Extra tanker supply of 40 KL/day needed for hospital wards,Hospital Administration (sample),9000000103,"Panagal Road, Madurai",HIGH,OPEN,,20,
+9,,SUPPLY_REQUEST,"Tanker requested for the street, taps are dry",K. Pandi,9000000104,"Arapalayam Cross Road, Madurai",MEDIUM,IN_PROGRESS,,50,
+9,8,LEAKAGE,Water gushing from the trunk main air valve near Kalavasal,R. Selvi,9000000105,"Kalavasal, Madurai",HIGH,RESOLVED,Air valve gasket replaced,100,80
+6,16,LEAKAGE,"Main pipe burst, road flooded",V. Ramesh,9000000106,Arcot Road near Vadapalani signal,HIGH,IN_PROGRESS,,54,
+6,,NO_SUPPLY,No supply since the pipe burst,J. Anitha,9000000107,Kodambakkam High Road,HIGH,OPEN,,40,
+12,15,LEAKAGE,Continuous leak on the main road,P. Murugan,9000000108,Near Palayamkottai bus stand,HIGH,OPEN,,60,
+12,,QUALITY,Muddy water in the taps,A. Fathima,9000000109,"Melapalayam, Tirunelveli",HIGH,OPEN,,26,
+7,,QUALITY,Water smells and is slightly yellow,S. Lakshmi,9000000110,"Gandhi Nagar, Adyar",HIGH,IN_PROGRESS,,36,
+7,21,LOW_PRESSURE,Low pressure since last week,N. Karthikeyan,9000000111,"LB Road, Thiruvanmiyur",MEDIUM,IN_PROGRESS,,120,
+10,,NO_SUPPLY,Supply skipped today,G. Senthil,9000000112,"Fairlands, Salem",HIGH,OPEN,,10,
+10,,SUPPLY_REQUEST,Additional bulk supply for the township,Township Residents Association (sample),9000000113,"Steel Plant Township, Salem",MEDIUM,OPEN,,75,
+11,13,LEAKAGE,Overhead tank leaking from the side wall,K. Saravanan,9000000114,"Surampatti, Erode",HIGH,IN_PROGRESS,,90,
+3,,LOW_PRESSURE,Low pressure on upper floors,R. Deepa,9000000115,"2nd Avenue, Anna Nagar",MEDIUM,RESOLVED,Valve operation timings adjusted,200,150
+3,,OTHER,Meter reading not taken this month,T. Prakash,9000000116,"Shanthi Colony, Anna Nagar",LOW,RESOLVED,Reading taken and bill corrected,300,260
+4,,NO_SUPPLY,Irregular supply this week,M. Revathi,9000000117,Ambattur OT,HIGH,OPEN,,45,
+4,,SUPPLY_REQUEST,"Tanker supply request, 10 loads per week",Industrial Estate Association (sample),9000000118,Ambattur Industrial Estate,MEDIUM,OPEN,,25,
+2,,NO_SUPPLY,No water since morning,S. Babu,9000000119,Madhavaram Milk Colony,HIGH,OPEN,,15,
+5,17,LEAKAGE,Leak near the booster station,L. Mary,9000000120,"TTK Road, Teynampet",HIGH,RESOLVED,Pump gland packing replaced,160,130
+5,,QUALITY,Sewage smell in drinking water,H. Imran,9000000121,Royapettah,HIGH,OPEN,,12,
+8,,SUPPLY_REQUEST,New connection request for 120 flats,Residents Welfare Federation (sample),9000000122,"Thoraipakkam, OMR",MEDIUM,IN_PROGRESS,,240,
+1,,LOW_PRESSURE,Low pressure in the evening,E. Ganesan,9000000123,"Kaladipet, Tiruvottiyur",MEDIUM,RESOLVED,Air lock cleared in feeder main,80,60
+13,,OTHER,Public tap broken,V. Priya,9000000124,"Car Street, Tiruvannamalai",LOW,OPEN,,34,
+14,25,LEAKAGE,Tank leaking,C. Jose,9000000125,"Krishnankoil, Nagercoil",HIGH,RESOLVED,Tank wall sealed,400,350
