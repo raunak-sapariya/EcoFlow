@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>4.1.1</version>
+		<relativePath/>
+	</parent>
+
+	<groupId>com.ecoflow</groupId>
+	<artifactId>ecoflow-parent</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+	<name>ecoflow-parent</name>
+	<description>EcoFlow: integrated water resource management for Tamil Nadu (parent POM, shared versions)</description>
+
+	<modules>
+		<module>user-service</module>       <!-- 8081: staff accounts, login check -->
+		<module>water-service</module>      <!-- 8082: sources, level readings, quality tests -->
+		<module>supply-service</module>     <!-- 8083: zones, usage, distribution schedules -->
+		<module>operations-service</module> <!-- 8084: assets, maintenance, complaints, alerts -->
+		<module>web-app</module>            <!-- 8000: Thymeleaf UI, calls the four services over REST -->
+	</modules>
+
+	<properties>
+		<java.version>21</java.version>
+		<springdoc.version>3.1.1</springdoc.version>
+		<commons-csv.version>1.14.1</commons-csv.version>
+	</properties>
+
+</project>
