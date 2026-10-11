@@ -1,0 +1,4 @@
+CREATE DATABASE user_db;
+CREATE DATABASE water_db;
+CREATE DATABASE supply_db;
+CREATE DATABASE operations_db;
