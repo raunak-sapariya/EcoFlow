@@ -1,0 +1,19 @@
+# Supply zones. Loaded by supply-service (config/CsvDataLoader) into an EMPTY supply_zones table on first start.
+# Zone names are real (Greater Chennai Corporation zones, other TN cities); populations are SAMPLE.
+# daily_demand_ml = population x 135 litres per day (CPHEEO norm). source_id = water-service source id (water_sources.csv).
+# id is only used by the other CSV files and by operations-service; keep the order.
+id,name,city,population,daily_demand_ml,source_id
+1,Tiruvottiyur (Zone 1),Chennai,252000,34,16
+2,Madhavaram (Zone 3),Chennai,268000,36.2,15
+3,Anna Nagar (Zone 8),Chennai,615000,83,16
+4,Ambattur (Zone 7),Chennai,470000,63.5,14
+5,Teynampet (Zone 9),Chennai,640000,86.4,18
+6,Kodambakkam (Zone 10),Chennai,712000,96.1,18
+7,Adyar (Zone 13),Chennai,590000,79.7,19
+8,Sholinganallur (Zone 15),Chennai,330000,44.6,17
+9,Madurai Central,Madurai,415000,56,5
+10,Salem City,Salem,392000,52.9,1
+11,Erode Corporation,Erode,298000,40.2,2
+12,Tirunelveli Town,Tirunelveli,286000,38.6,6
+13,Tiruvannamalai Town,Tiruvannamalai,145000,19.6,11
+14,Nagercoil,Kanyakumari,225000,30.4,8
