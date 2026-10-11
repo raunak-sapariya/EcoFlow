@@ -1,0 +1,61 @@
+# Water quality tests. source_id = id in water_sources.csv.
+# Rows whose remarks say 'TNPCB NWMP <month> 2023 values': REAL 2023 measurements of that station, re-dated to 2026 for the demo.
+# Source: https://tnpcb.gov.in/PDF/About_Us/projects/WaterQuality/WQDJanToDec2023.pdf . Rows marked 'Sample data' are made up.
+# result = PASS/FAIL against CPCB Class C (pH 6-9, DO >= 4, BOD <= 3, total coliform <= 5000), see QualityService.
+source_id,tested_on,ph,dissolved_oxygen,bod,turbidity,tds,total_coliform,lab_name,result,remarks
+1,2026-05-05,8.03,5.9,0.9,2.15,316,17,"TNPCB AEL, Salem",PASS,"TNPCB NWMP May 2023 values, station Mettur R/Cauvery"
+1,2026-06-05,8.88,6.5,2.1,2,312,17,"TNPCB AEL, Salem",PASS,"TNPCB NWMP Jun 2023 values, station Mettur R/Cauvery"
+1,2026-07-05,8.45,5.8,2.4,1,348,17,"TNPCB AEL, Salem",PASS,"TNPCB NWMP Jul 2023 values, station Mettur R/Cauvery"
+1,2026-08-05,7.97,6.3,2.1,0.3,332,13,"TNPCB AEL, Salem",PASS,"TNPCB NWMP Aug 2023 values, station Mettur R/Cauvery"
+1,2026-09-05,8.05,6.1,2.1,0.29,288,32,"TNPCB AEL, Salem",PASS,"TNPCB NWMP Sep 2023 values, station Mettur R/Cauvery"
+1,2026-10-05,7.94,5.2,2.1,1,248,14,"TNPCB AEL, Salem",PASS,"TNPCB NWMP Oct 2023 values, station Mettur R/Cauvery"
+2,2026-05-05,8.3,5.7,2.1,2.9,124,26,"TNPCB AEL, Salem",PASS,"TNPCB NWMP May 2023 values, station Bhavani Sagar R/Bhavani"
+2,2026-06-05,7.75,5.7,2.4,3,132,39,"TNPCB AEL, Salem",PASS,"TNPCB NWMP Jun 2023 values, station Bhavani Sagar R/Bhavani"
+2,2026-07-05,7.5,6.7,2,2,88,48,"TNPCB AEL, Salem",PASS,"TNPCB NWMP Jul 2023 values, station Bhavani Sagar R/Bhavani"
+2,2026-08-05,8.62,6,2.7,0.14,320,20,"TNPCB AEL, Salem",PASS,"TNPCB NWMP Aug 2023 values, station Bhavani Sagar R/Bhavani"
+2,2026-09-05,7.55,5.8,2.7,0.12,176,26,"TNPCB AEL, Salem",PASS,"TNPCB NWMP Sep 2023 values, station Bhavani Sagar R/Bhavani"
+2,2026-10-05,7.6,5.2,2,2.1,140,24,"TNPCB AEL, Salem",PASS,"TNPCB NWMP Oct 2023 values, station Bhavani Sagar R/Bhavani"
+5,2026-06-05,7.47,6.8,2,1,218,21,"TNPCB AEL, Madurai",PASS,"TNPCB NWMP Jan 2023 values, station River Vaigai at Madurai U/s"
+5,2026-07-05,7.79,5.3,3,1,416,47,"TNPCB AEL, Madurai",PASS,"TNPCB NWMP Feb 2023 values, station River Vaigai at Madurai U/s"
+5,2026-08-05,7.62,6.4,2,1,388,21,"TNPCB AEL, Madurai",PASS,"TNPCB NWMP Mar 2023 values, station River Vaigai at Madurai U/s"
+5,2026-09-05,7.31,6.2,2,1,250,21,"TNPCB AEL, Madurai",PASS,"TNPCB NWMP May 2023 values, station River Vaigai at Madurai U/s"
+5,2026-10-05,7.3,5.7,2,1,304,11,"TNPCB AEL, Madurai",PASS,"TNPCB NWMP Dec 2023 values, station River Vaigai at Madurai U/s"
+6,2026-05-05,7.23,7.2,2,0.71,42,24,"TNPCB DEL, Tirunelveli",PASS,"TNPCB NWMP Apr 2023 values, station Papavinasam R/Tamiraparani"
+6,2026-06-05,7.5,6.3,2.4,9.93,52,39,"TNPCB DEL, Tirunelveli",PASS,"TNPCB NWMP Jun 2023 values, station Papavinasam R/Tamiraparani"
+6,2026-07-05,7.98,4.9,2.9,2.5,48,25,"TNPCB DEL, Tirunelveli",PASS,"TNPCB NWMP Jul 2023 values, station Papavinasam R/Tamiraparani"
+6,2026-08-05,7.12,5.8,2,2.2,56,25,"TNPCB DEL, Tirunelveli",PASS,"TNPCB NWMP Aug 2023 values, station Papavinasam R/Tamiraparani"
+6,2026-09-05,7.62,5.8,4,2.2,62,26,"TNPCB DEL, Tirunelveli",FAIL,"BOD 4.0 mg/L > 3.0. TNPCB NWMP Sep 2023 values, station Papavinasam R/Tamiraparani"
+6,2026-10-05,6.66,6.2,2,4.8,96,63,"TNPCB DEL, Tirunelveli",PASS,"TNPCB NWMP Nov 2023 values, station Papavinasam R/Tamiraparani"
+14,2026-05-05,7.75,6,2,4.95,658,40,"TNPCB AEL, Chennai",PASS,"TNPCB NWMP May 2023 values, station Poondi Lake at Thiruvallur"
+14,2026-06-05,7.8,6.4,2,4.02,496,60,"TNPCB AEL, Chennai",PASS,"TNPCB NWMP Jun 2023 values, station Poondi Lake at Thiruvallur"
+14,2026-07-05,8.13,6.8,2,6.2,506,210,"TNPCB AEL, Chennai",PASS,"TNPCB NWMP Jul 2023 values, station Poondi Lake at Thiruvallur"
+14,2026-08-05,7.81,6.47,2,6.9,656,20,"TNPCB AEL, Chennai",PASS,"TNPCB NWMP Aug 2023 values, station Poondi Lake at Thiruvallur"
+14,2026-09-05,8.08,6.5,3,1.2,384,18,"TNPCB AEL, Chennai",PASS,"TNPCB NWMP Sep 2023 values, station Poondi Lake at Thiruvallur"
+14,2026-10-05,8.03,6.35,3,1.2,412,20,"TNPCB AEL, Chennai",PASS,"TNPCB NWMP Oct 2023 values, station Poondi Lake at Thiruvallur"
+16,2026-05-05,7.61,6.27,2,5.08,448,45,"TNPCB AEL, Chennai",PASS,"TNPCB NWMP May 2023 values, station Red Hills Lake at Thiruvallur"
+16,2026-06-05,7.1,7.1,2,7.86,396,60,"TNPCB AEL, Chennai",PASS,"TNPCB NWMP Jun 2023 values, station Red Hills Lake at Thiruvallur"
+16,2026-07-05,7.75,7,2,8.1,412,68,"TNPCB AEL, Chennai",PASS,"TNPCB NWMP Jul 2023 values, station Red Hills Lake at Thiruvallur"
+16,2026-08-05,7.05,7.2,2.4,9.5,420,18,"TNPCB AEL, Chennai",PASS,"TNPCB NWMP Aug 2023 values, station Red Hills Lake at Thiruvallur"
+16,2026-09-05,8.62,6.2,2,1,442,130,"TNPCB AEL, Chennai",PASS,"TNPCB NWMP Sep 2023 values, station Red Hills Lake at Thiruvallur"
+16,2026-10-05,8.26,6.09,3,1,438,37,"TNPCB AEL, Chennai",PASS,"TNPCB NWMP Oct 2023 values, station Red Hills Lake at Thiruvallur"
+19,2026-05-05,8.45,5.9,2.4,1.9,428,32,"TNPCB DEL, Cuddalore",PASS,"TNPCB NWMP May 2023 values, station Veeranam Lake at Cuddalore"
+19,2026-06-05,8.94,6.1,2.4,2.05,484,33,"TNPCB DEL, Cuddalore",PASS,"TNPCB NWMP Jun 2023 values, station Veeranam Lake at Cuddalore"
+19,2026-07-05,7.54,5.5,2.4,3,520,24,"TNPCB DEL, Cuddalore",PASS,"TNPCB NWMP Jul 2023 values, station Veeranam Lake at Cuddalore"
+19,2026-08-05,8.24,5.9,2.7,0.89,428,32,"TNPCB DEL, Cuddalore",PASS,"TNPCB NWMP Aug 2023 values, station Veeranam Lake at Cuddalore"
+19,2026-09-05,8.39,5.42,12,0.96,346,26,"TNPCB DEL, Cuddalore",FAIL,"BOD 12.0 mg/L > 3.0. TNPCB NWMP Oct 2023 values, station Veeranam Lake at Cuddalore"
+19,2026-10-05,8.32,5.5,8,0.82,740,33,"TNPCB DEL, Cuddalore",FAIL,"BOD 8.0 mg/L > 3.0. TNPCB NWMP Nov 2023 values, station Veeranam Lake at Cuddalore"
+8,2026-09-05,7.1,7.4,1.2,1.6,58,30,"TNPCB DEL, Nagercoil",PASS,Sample data
+8,2026-10-05,7,7.3,1.4,1.9,61,34,"TNPCB DEL, Nagercoil",PASS,Sample data
+11,2026-09-05,7.9,6.8,2,3,290,60,"TNPCB DEL, Tiruvannamalai",PASS,Sample data
+11,2026-10-05,8.1,6.6,2.2,3.4,302,75,"TNPCB DEL, Tiruvannamalai",PASS,Sample data
+15,2026-09-05,7.6,6.4,2.6,6.5,610,220,CMWSSB Central Laboratory,PASS,Sample data
+15,2026-10-05,7.8,6.1,2.9,7.2,640,310,CMWSSB Central Laboratory,PASS,Sample data
+17,2026-09-05,7.4,6.9,1.8,3.1,380,90,CMWSSB Central Laboratory,PASS,Sample data
+17,2026-10-05,7.5,6.7,2,2.8,395,120,CMWSSB Central Laboratory,PASS,Sample data
+18,2026-09-05,7.7,6.6,2.2,4.4,520,140,CMWSSB Central Laboratory,PASS,Sample data
+18,2026-10-05,7.9,6.3,2.6,4.9,548,180,CMWSSB Central Laboratory,PASS,Sample data
+20,2026-09-05,7.4,7.2,1,0.6,410,0,CMWSSB Central Laboratory,PASS,Sample data
+20,2026-10-05,7.3,7.1,1,0.5,402,0,CMWSSB Central Laboratory,PASS,Sample data
+21,2026-09-05,7.5,7,1.2,0.8,425,0,CMWSSB Central Laboratory,PASS,Sample data
+21,2026-10-05,7.6,6.9,1.1,0.9,431,2,CMWSSB Central Laboratory,PASS,Sample data
+22,2026-10-05,7.2,5.8,1,0.7,1180,4,CMWSSB Central Laboratory,PASS,Sample data

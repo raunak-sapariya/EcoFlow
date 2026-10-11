@@ -1,0 +1,30 @@
+# Water sources. Loaded by water-service (config/CsvDataLoader) into an EMPTY water_sources table on first start.
+# Rows 1-13: Tamil Nadu reservoirs, TN Agriculture Dept bulletin of 10-10-2026: https://www.tnagrisnet.tn.gov.in/ARS/home/reservoir
+# Rows 14-19: Chennai lakes, CMWSSB bulletin of 09-10-2026: https://cmwssb.tn.gov.in/lake-level
+# Rows 20-23: SAMPLE distribution tanks and well fields (made up).
+# capacity_ml = published capacity in mcft x 28.3168 (million litres).
+# id is only used by the other CSV files to point at a row; the database numbers rows in file order (so keep the order).
+id,name,type,district,latitude,longitude,capacity_ml,managed_by
+1,Mettur (Stanley Reservoir),RESERVOIR,Salem,11.7956,77.8034,2646771.3,"WRD, Tamil Nadu"
+2,Bhavanisagar,RESERVOIR,Erode,11.4706,77.1129,928791,"WRD, Tamil Nadu"
+3,Amaravathi,RESERVOIR,Tiruppur,10.4156,77.2706,114598.1,"WRD, Tamil Nadu"
+4,Periyar (Mullaperiyar),RESERVOIR,Theni,9.5287,77.144,299308.6,"WRD, Tamil Nadu"
+5,Vaigai,RESERVOIR,Theni,10.0536,77.5929,172477.6,"WRD, Tamil Nadu"
+6,Papanasam,RESERVOIR,Tirunelveli,8.7135,77.3659,155742.4,"WRD, Tamil Nadu"
+7,Manimuthar,RESERVOIR,Tirunelveli,8.645,77.43,156053.9,"WRD, Tamil Nadu"
+8,Pechiparai,RESERVOIR,Kanyakumari,8.4386,77.3108,126009.8,"WRD, Tamil Nadu"
+9,Perunchani,RESERVOIR,Kanyakumari,8.377,77.372,81835.6,"WRD, Tamil Nadu"
+10,Krishnagiri (KRP),RESERVOIR,Krishnagiri,12.477,78.181,47175.8,"WRD, Tamil Nadu"
+11,Sathanur,RESERVOIR,Tiruvannamalai,12.1847,78.8611,207307.3,"WRD, Tamil Nadu"
+12,Aliyar,RESERVOIR,Coimbatore,10.481,76.967,109416.1,"WRD, Tamil Nadu"
+13,Thirumurthy,RESERVOIR,Tiruppur,10.46,77.16,49384.5,"WRD, Tamil Nadu"
+14,Poondi (Sathyamurthy Sagar),LAKE,Tiruvallur,13.1906,79.8728,91491.6,WRD / CMWSSB
+15,Cholavaram,LAKE,Tiruvallur,13.2306,80.1515,30610.5,WRD / CMWSSB
+16,Puzhal (Red Hills),LAKE,Tiruvallur,13.1625,80.181,93445.4,WRD / CMWSSB
+17,Kannankottai Thervoy Kandigai,LAKE,Tiruvallur,13.379,79.985,14158.4,WRD / CMWSSB
+18,Chembarambakkam,LAKE,Kanchipuram,13.008,80.057,103214.7,WRD / CMWSSB
+19,Veeranam,LAKE,Cuddalore,11.33,79.54,41484.1,WRD / CMWSSB
+20,Kilpauk Water Distribution Station,TANK,Chennai,13.0827,80.243,85,CMWSSB
+21,K.K. Nagar Water Distribution Station,TANK,Chennai,13.041,80.199,39.6,CMWSSB
+22,Minjur Well Field,WELL,Tiruvallur,13.279,80.261,30,CMWSSB
+23,Panjetty Well Field,WELL,Tiruvallur,13.326,80.155,22.1,CMWSSB
