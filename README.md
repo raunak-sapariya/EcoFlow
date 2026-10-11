@@ -16,8 +16,7 @@ microservice is running.
 
 - **Part A: Developer workflow**: [Architecture](#a1-architecture) · [Run it](#a2-run-it) · [Project layout](#a3-project-layout) ·
   [Page pattern](#a4-the-page-pattern-form--table) · [Database architecture](#a5-database-architecture) · [REST APIs](#a6-rest-apis) ·
-  [Alerts](#a7-alerts) · [Data sources](#a8-data-real-vs-sample) · [Recipes](#a9-recipes) ·
-  [Troubleshooting](#a11-troubleshooting)
+  [Alerts](#a7-alerts) · [Data sources](#a8-data-real-vs-sample) · [Recipes](#a9-recipes)
 - **Part B: User workflow**: [Roles](#b1-roles) · [Staff workflow](#b2-staff-workflow) · [Citizen workflow](#b3-citizen-workflow)
 
 ---
