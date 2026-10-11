@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Distribution')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: topbar}"></header>
+<main>
+	<h1>Distribution schedules</h1>
+	<p class="note">Supply cycles per zone.</p>
+	<div th:replace="~{fragments/layout :: flash}"></div>
+
+	<h2>Plan a supply cycle</h2>
+	<form class="entry" th:action="@{/schedules}" method="post">
+		<label>Zone
+			<select name="zoneId" required>
+				<option th:each="z : ${zones}" th:value="${z.id}" th:text="${z.name}">Madurai Central</option>
+			</select>
+		</label>
+		<label>Supply date <input type="date" name="supplyDate" th:value="${tomorrow}" required></label>
+		<label>Amount (ML) <input type="number" name="allocatedMl" step="0.1" min="0.1" required></label>
+		<label>Start time <input type="time" name="startTime" value="06:00" required></label>
+		<label>End time <input type="time" name="endTime" value="09:00" required></label>
+		<div class="wide"><button type="submit">Save supply cycle</button></div>
+	</form>
+
+	<h2>Latest 50 supply cycles (newest first)</h2>
+	<div class="table-box">
+		<table>
+			<tr>
+				<th>ID</th>
+				<th>Zone</th>
+				<th>Date</th>
+				<th>Start</th>
+				<th>End</th>
+				<th>Planned (ML)</th>
+				<th>Supplied (ML)</th>
+				<th>Status</th>
+			</tr>
+			<tr th:each="s : ${schedules}">
+				<td th:text="${s.id}">1</td>
+				<td th:text="${s.zoneName != null ? s.zoneName : '-'}">Madurai Central</td>
+				<td th:text="${s.supplyDate != null ? s.supplyDate : '-'}">2026-10-11</td>
+				<td th:text="${s.startTime != null ? s.startTime : '-'}">06:00</td>
+				<td th:text="${s.endTime != null ? s.endTime : '-'}">08:30</td>
+				<td th:text="${s.allocatedMl != null ? s.allocatedMl : '-'}">33.6</td>
+				<td th:text="${s.suppliedMl != null ? s.suppliedMl : '-'}">-</td>
+				<td th:text="${s.status != null ? s.status : '-'}">PLANNED</td>
+			</tr>
+		</table>
+	</div>
+	<p th:if="${#lists.isEmpty(schedules)}">No supply cycles yet.</p>
+</main>
+</body>
+</html>

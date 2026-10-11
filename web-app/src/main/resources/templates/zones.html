@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Supply zones')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: topbar}"></header>
+<main>
+	<h1>Supply zones</h1>
+	<p class="note">Each zone gets its water from a source. Open Zone to Overview and Plan next cycle.</p>
+	<div th:replace="~{fragments/layout :: flash}"></div>
+
+	<h2>Add a supply zone</h2>
+	<form class="entry" th:action="@{/zones}" method="post">
+		<label>Zone name <input name="name" required></label>
+		<label>City / town <input name="city" required></label>
+		<label>Population <input name="population" type="number" min="1" required></label>
+		<label>Water source
+			<select name="sourceId" required>
+				<option th:each="s : ${sources}" th:value="${s.id}" th:text="${s.name}">Vaigai</option>
+			</select>
+		</label>
+		<label>Daily demand (ML) <input name="dailyDemandMl" type="number" step="0.1" min="0.1"></label>
+		<div class="wide"><button type="submit">Save zone</button></div>
+	</form>
+
+	<h2>All supply zones (newest first)</h2>
+	<div class="table-box">
+		<table>
+			<tr>
+				<th>ID</th>
+				<th>Zone</th>
+				<th>City</th>
+				<th>Population</th>
+				<th>Daily demand (ML)</th>
+				<th>Water source</th>
+				<th>Situation</th>
+			</tr>
+			<tr th:each="z : ${zones}">
+				<td th:text="${z.id}">9</td>
+				<td th:text="${z.name != null ? z.name : '-'}">Madurai Central</td>
+				<td th:text="${z.city != null ? z.city : '-'}">Madurai</td>
+				<td th:text="${z.population != null ? z.population : '-'}">415000</td>
+				<td th:text="${z.dailyDemandMl != null ? z.dailyDemandMl : '-'}">56.0</td>
+				<td th:text="${sourceNames.get(z.sourceId) != null ? sourceNames.get(z.sourceId) : '-'}">Vaigai</td>
+				<td><a th:href="@{/zones/{id}(id=${z.id})}">Open</a></td>
+			</tr>
+		</table>
+	</div>
+	<p th:if="${#lists.isEmpty(zones)}">No zones yet.</p>
+</main>
+</body>
+</html>

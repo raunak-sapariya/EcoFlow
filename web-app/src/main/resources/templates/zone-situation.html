@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${zone.name})}"></head>
+<body>
+<header th:replace="~{fragments/layout :: topbar}"></header>
+<main>
+	<p><a th:href="@{/zones}">&larr; All supply zones</a></p>
+	<h1 th:text="${zone.name}" >Madurai Central</h1>
+	<p class="note" > <span th:text="${zone.name}"></span>'s water source, supply cycles, usage, infrastructure,
+		pending maintenance and open requests.</p>
+		<div th:replace="~{fragments/layout :: flash}"></div>
+
+	<h2>Zone and water source</h2>
+	<div class="table-box">
+		<table>
+			<tr>
+				<th>City</th>
+				<th>Population</th>
+				<th>Daily demand (ML)</th>
+				<th>Water source</th>
+				<th>Source stored (%)</th>
+				<th>Availability</th>
+				<th>Days of water left</th>
+				<th>Last reading</th>
+			</tr>
+			<tr>
+				<td th:text="${zone.city != null ? zone.city : '-'}">Madurai</td>
+				<td th:text="${zone.population != null ? zone.population : '-'}">415000</td>
+				<td th:text="${zone.dailyDemandMl != null ? zone.dailyDemandMl : '-'}">56.0</td>
+				<td th:text="${source.name != null ? source.name : '-'}">Vaigai</td>
+				<td th:text="${source.storagePercent != null ? source.storagePercent : '-'}">14.4</td>
+				<td th:text="${source.availability != null ? source.availability : '-'}">CRITICAL</td>
+				<td th:text="${source.daysOfSupply != null ? source.daysOfSupply : '-'}">169.7</td>
+				<td th:text="${source.lastReadingDate != null ? source.lastReadingDate : '-'}">2026-10-10</td>
+			</tr>
+		</table>
+	</div>
+
+	<h2>Plan the next supply cycle</h2>
+	<p><strong>Rule:</strong> <span th:text="${plan.rule}">Vaigai is CRITICAL: supply 60 % of the daily demand</span>.
+		Suggested amount: <strong th:text="${plan.suggestedMl} + ' ML'">33.6 ML</strong>.
+		A bigger amount is rejected while the source is not NORMAL.</p>
+	<form class="entry" th:action="@{/zones/{id}/schedules(id=${zone.id})}" method="post">
+		<input type="hidden" name="zoneId" th:value="${zone.id}">
+		<label>Supply date <input type="date" name="supplyDate" th:value="${tomorrow}" required></label>
+		<label>Start time <input type="time" name="startTime" value="06:00" required></label>
+		<label>End time <input type="time" name="endTime" value="08:30" required></label>
+		<label>Amount (ML) <input type="number" name="allocatedMl" step="0.1" min="0.1" th:value="${plan.suggestedMl}" required></label>
+		<div class="wide"><button type="submit">Save supply cycle</button></div>
+	</form>
+
+	<h2>Supply cycles of this zone (newest first)</h2>
+	<div class="table-box">
+		<table>
+			<tr>
+				<th>ID</th>
+				<th>Date</th>
+				<th>Start</th>
+				<th>End</th>
+				<th>Planned (ML)</th>
+				<th>Supplied (ML)</th>
+				<th>Status</th>
+			</tr>
+			<tr th:each="s : ${schedules}">
+				<td th:text="${s.id}">1</td>
+				<td th:text="${s.supplyDate != null ? s.supplyDate : '-'}">2026-10-11</td>
+				<td th:text="${s.startTime != null ? s.startTime : '-'}">06:00</td>
+				<td th:text="${s.endTime != null ? s.endTime : '-'}">08:30</td>
+				<td th:text="${s.allocatedMl != null ? s.allocatedMl : '-'}">33.6</td>
+				<td th:text="${s.suppliedMl != null ? s.suppliedMl : '-'}">-</td>
+				<td th:text="${s.status != null ? s.status : '-'}">PLANNED</td>
+			</tr>
+		</table>
+	</div>
+
+	<h2>Water usage of this zone (newest first)</h2>
+	<div class="table-box">
+		<table>
+			<tr>
+				<th>Month</th>
+				<th>Category</th>
+				<th>Volume (ML)</th>
+			</tr>
+			<tr th:each="u : ${usage}">
+				<td th:text="${u.usageMonth != null ? #temporals.format(u.usageMonth, 'MMM yyyy') : '-'}">Sep 2026</td>
+				<td th:text="${u.category != null ? u.category : '-'}">DOMESTIC</td>
+				<td th:text="${u.volumeMl != null ? u.volumeMl : '-'}">700.0</td>
+			</tr>
+		</table>
+	</div>
+
+	<h2>Infrastructure in this zone</h2>
+	<div class="table-box">
+		<table>
+			<tr>
+				<th>Asset</th>
+				<th>Type</th>
+				<th>Condition</th>
+				<th>Status</th>
+			</tr>
+			<tr th:each="a : ${assets}">
+				<td th:text="${a.name != null ? a.name : '-'}">Vaigai Head Works</td>
+				<td th:text="${a.type != null ? a.type : '-'}">PUMP</td>
+				<td th:text="${a.condition != null ? a.condition : '-'}">POOR</td>
+				<td th:text="${a.status != null ? a.status : '-'}">FAULTY</td>
+			</tr>
+		</table>
+	</div>
+	<p th:if="${#lists.isEmpty(assets)}">No assets in this zone.</p>
+
+	<h2>Pending maintenance in this zone</h2>
+	<div class="table-box">
+		<table>
+			<tr>
+				<th>Due date</th>
+				<th>Asset</th>
+				<th>Work</th>
+				<th>Status</th>
+			</tr>
+			<tr th:each="t : ${tasks}">
+				<td th:text="${t.scheduledDate != null ? t.scheduledDate : '-'}">2026-10-07</td>
+				<td th:text="${t.assetName != null ? t.assetName : '-'}">Vaigai Head Works</td>
+				<td th:text="${t.description != null ? t.description : '-'}">Motor winding burnt</td>
+				<td th:text="${t.status != null ? t.status : '-'}">IN_PROGRESS</td>
+			</tr>
+		</table>
+	</div>
+	<p th:if="${#lists.isEmpty(tasks)}">Nothing pending.</p>
+
+	<h2>Open supply requests and complaints in this zone</h2>
+	<div class="table-box">
+		<table>
+			<tr>
+				<th>Ticket</th>
+				<th>Category</th>
+				<th>Description</th>
+				<th>Priority</th>
+				<th>Status</th>
+			</tr>
+			<tr th:each="c : ${complaints}">
+				<td><a th:href="@{/complaints/{id}(id=${c.id})}" th:text="'#' + ${c.id}">#1</a></td>
+				<td th:text="${c.category != null ? c.category : '-'}">SUPPLY_REQUEST</td>
+				<td th:text="${c.description != null ? c.description : '-'}">Tanker request</td>
+				<td th:text="${c.priority != null ? c.priority : '-'}">HIGH</td>
+				<td th:text="${c.status != null ? c.status : '-'}">OPEN</td>
+			</tr>
+		</table>
+	</div>
+	<p th:if="${#lists.isEmpty(complaints)}">No open requests or complaints.</p>
+</main>
+</body>
+</html>

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<!--
+  Shared pieces used by every page:
+    <head th:replace="~{fragments/layout :: head('Page title')}"></head>
+    <header th:replace="~{fragments/layout :: topbar}"></header>
+    <div th:replace="~{fragments/layout :: flash}"></div>
+-->
+
+<head th:fragment="head(title)">
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title th:text="${title} + ' - EcoFlow'">EcoFlow</title>
+	<link rel="icon" type="image/svg+xml" th:href="@{/favicon.svg}">
+	<link rel="stylesheet" th:href="@{/css/app.css}">
+</head>
+
+<body>
+
+<!-- Top bar with links to every page. Staff pages show the links; public pages show only the brand. -->
+<header th:fragment="topbar" class="topbar">
+	<a class="brand" th:href="@{/dashboard}">EcoFlow</a>
+	<nav th:if="${me != null}">
+		<a th:href="@{/dashboard}">Dashboard</a>
+		<a th:href="@{/sources}">Sources</a>
+		<a th:href="@{/quality}">Water quality</a>
+		<a th:href="@{/zones}">Zones</a>
+		<a th:href="@{/usage}">Usage</a>
+		<a th:href="@{/schedules}">Distribution</a>
+		<a th:href="@{/assets}">Infrastructure</a>
+		<a th:href="@{/maintenance}">Maintenance</a>
+		<a th:href="@{/complaints}">Complaints</a>
+		<a th:href="@{/alerts}">Alerts</a>
+		<a th:href="@{/health}">Health</a>
+		<a th:if="${me.admin}" th:href="@{/users}">Staff accounts</a>
+	</nav>
+	<nav th:if="${me == null}">
+		<a th:href="@{/report}">Report an issue</a>
+		<a th:href="@{/track}">Track a ticket</a>
+		<a th:href="@{/login}">Staff sign in</a>
+	</nav>
+	<div class="user" th:if="${me != null}">
+		<span th:text="${me.fullName} + ' (' + ${me.role} + ')'">Name (STAFF)</span>
+		<form th:action="@{/logout}" method="post"><button type="submit">Sign out</button></form>
+	</div>
+</header>
+
+<div th:fragment="flash" th:remove="tag">
+	<p class="success" th:if="${success != null}" th:text="${success}"></p>
+	<p class="error" th:if="${error != null}" th:text="${error}"></p>
+</div>
+
+</body>
+</html>

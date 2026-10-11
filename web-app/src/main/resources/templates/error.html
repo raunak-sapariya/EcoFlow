@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Error')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: topbar}"></header>
+<main>
+	<h1 th:text="${title != null ? title : 'Something went wrong'}">Something went wrong</h1>
+	<p class="error" th:text="${message != null ? message : (error != null ? error : 'Please go back and try again.')}">Error</p>
+	<p><a th:href="@{/dashboard}">Back to the dashboard</a></p>
+</main>
+</body>
+</html>

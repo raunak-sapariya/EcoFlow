@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Water usage')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: topbar}"></header>
+<main>
+	<h1>Water usage</h1>
+	<p class="note">Category & Zone wise monthly water usage.</p>
+	<div th:replace="~{fragments/layout :: flash}"></div>
+
+	<h2>Record usage</h2>
+	<form class="entry" th:action="@{/usage}" method="post">
+		<label>Zone
+			<select name="zoneId" required>
+				<option th:each="z : ${zones}" th:value="${z.id}" th:text="${z.name}">Madurai Central</option>
+			</select>
+		</label>
+		<label>Month <input type="month" name="usageMonth" th:value="${lastMonth}" required></label>
+		<label>Category
+			<select name="category">
+				<option value="DOMESTIC">DOMESTIC</option>
+				<option value="INDUSTRIAL">INDUSTRIAL</option>
+				<option value="INSTITUTIONAL">INSTITUTIONAL</option>
+				<option value="AGRICULTURAL">AGRICULTURAL</option>
+			</select>
+		</label>
+		<label>Volume (ML) <input type="number" name="volumeMl" step="0.1" min="0.1" required></label>
+		<div class="wide"><button type="submit">Save usage</button></div>
+	</form>
+
+	<h2>Latest 50 usage records (newest first)</h2>
+	<div class="table-box">
+		<table>
+			<tr>
+				<th>ID</th>
+				<th>Zone</th>
+				<th>Month</th>
+				<th>Category</th>
+				<th>Volume (ML)</th>
+			</tr>
+			<tr th:each="u : ${usage}">
+				<td th:text="${u.id}">1</td>
+				<td th:text="${u.zoneName != null ? u.zoneName : '-'}">Madurai Central</td>
+				<td th:text="${u.usageMonth != null ? #temporals.format(u.usageMonth, 'MMM yyyy') : '-'}">Sep 2026</td>
+				<td th:text="${u.category != null ? u.category : '-'}">DOMESTIC</td>
+				<td th:text="${u.volumeMl != null ? u.volumeMl : '-'}">700.0</td>
+			</tr>
+		</table>
+	</div>
+	<p th:if="${#lists.isEmpty(usage)}">No usage recorded yet.</p>
+</main>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Staff accounts')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: topbar}"></header>
+<main>
+	<h1>Staff accounts</h1>
+	<p class="note">Only an ADMIN can see this page. STAFF can use every other page. Citizens don't need an account.</p>
+	<div th:replace="~{fragments/layout :: flash}"></div>
+
+	<h2>Add a staff account</h2>
+	<form class="entry" th:action="@{/users}" method="post">
+		<label>Username <input name="username" required minlength="3"></label>
+		<label>Full name <input name="fullName" required></label>
+		<label>Email <input type="email" name="email" required></label>
+		<label>Password <input type="password" name="password" required minlength="6"></label>
+		<label>Role
+			<select name="role">
+				<option value="STAFF">STAFF</option>
+				<option value="ADMIN">ADMIN</option>
+			</select>
+		</label>
+		<div class="wide"><button type="submit">Save account</button></div>
+	</form>
+
+	<h2>All accounts (newest first)</h2>
+	<div class="table-box">
+		<table>
+			<tr>
+				<th>ID</th>
+				<th>Username</th>
+				<th>Full name</th>
+				<th>Email</th>
+				<th>Role</th>
+				<th>Active</th>
+				<th>Action</th>
+			</tr>
+			<tr th:each="u : ${users}">
+				<td th:text="${u.id}">1</td>
+				<td th:text="${u.username != null ? u.username : '-'}">admin</td>
+				<td th:text="${u.fullName != null ? u.fullName : '-'}">EcoFlow Admin</td>
+				<td th:text="${u.email != null ? u.email : '-'}">admin@example.com</td>
+				<td th:text="${u.role != null ? u.role : '-'}">ADMIN</td>
+				<td th:text="${u.enabled != null ? (u.enabled ? 'Yes' : 'No') : '-'}">Yes</td>
+				<td>
+					<form th:if="${u.id != me.id}" th:action="@{/users/{id}/delete(id=${u.id})}" method="post"
+						  onsubmit="return confirm('Delete this account?');">
+						<button type="submit">Delete</button>
+					</form>
+					<span th:if="${u.id == me.id}">(you)</span>
+				</td>
+			</tr>
+		</table>
+	</div>
+</main>
+</body>
+</html>

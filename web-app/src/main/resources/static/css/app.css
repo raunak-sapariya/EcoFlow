@@ -1,0 +1,267 @@
+/*
+Color scheme
+  page background: ivory
+  forms and tables: white
+  top bar, table headings: sand
+  borders: line
+  small grey text: taupe
+  main text: ink
+  buttons and links: teal
+  success message: green
+  error message: red
+*/
+:root {
+  --ivory: #f7f3ec;
+  --white: #fffdf9;
+  --sand: #efe7db;
+  --line: #ddd2c2;
+  --taupe: #7d705f;
+  --ink: #2b2620;
+  --teal: #2f7c82;
+  --green: #e2ebdc;
+  --red: #f4ddd5;
+}
+
+body {
+  margin: 0;
+  background: var(--ivory);
+  color: var(--ink);
+  font-family: system-ui, "Segoe UI", Arial, sans-serif;
+  font-size: 15px;
+}
+
+a {
+  color: var(--teal);
+}
+
+.topbar {
+  background: var(--sand);
+  border-bottom: 1px solid var(--line);
+  padding: 10px 24px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px 18px;
+}
+.topbar .brand {
+  font-weight: bold;
+  font-size: 18px;
+  color: var(--ink);
+  text-decoration: none;
+  margin-right: 10px;
+}
+.topbar nav a {
+  margin-right: 12px;
+  text-decoration: none;
+}
+.topbar nav a:hover {
+  text-decoration: underline;
+}
+.topbar .user {
+  margin-left: auto;
+  color: var(--taupe);
+}
+.topbar .user form {
+  display: inline;
+}
+
+main {
+  margin: 0 auto;
+  padding: 20px 24px 50px;
+}
+h1 {
+  margin: 10px 0 4px;
+  font-size: 26px;
+}
+h2 {
+  margin: 28px 0 10px;
+  font-size: 18px;
+}
+.note {
+  color: var(--taupe);
+  margin-top: 0;
+}
+
+.success,
+.error {
+  padding: 10px 14px;
+  border-radius: 6px;
+  margin: 12px 0;
+}
+.success {
+  background: var(--green);
+}
+.error {
+  background: var(--red);
+}
+
+form.entry {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 16px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px 16px;
+}
+form.entry label {
+  display: block;
+  font-size: 14px;
+}
+form.entry .wide {
+  grid-column: 1 / -1;
+}
+input,
+select,
+textarea {
+  display: block;
+  width: 100%;
+  box-sizing: border-box;
+  margin-top: 4px;
+  padding: 7px 8px;
+  border: 1px solid var(--line);
+  border-radius: 4px;
+  background: #fff;
+  font: inherit;
+}
+button {
+  background: var(--teal);
+  color: #fff;
+  border: 0;
+  border-radius: 4px;
+  padding: 8px 18px;
+  font: inherit;
+  cursor: pointer;
+}
+button:hover {
+  opacity: 0.9;
+}
+
+.table-box {
+  overflow-x: auto;
+}
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: var(--white);
+}
+th,
+td {
+  border: 1px solid var(--line);
+  padding: 7px 10px;
+  text-align: left;
+  vertical-align: top;
+}
+th {
+  background: var(--sand);
+}
+td form {
+  margin: 0;
+}
+td button {
+  padding: 4px 10px;
+}
+
+.alerts-box {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin: 16px 0 20px;
+}
+.box-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+.box-head h2 {
+  margin: 0 0 8px;
+}
+.alert-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.alert-list li {
+  border-top: 1px solid var(--line);
+}
+.alert-list a {
+  display: flex;
+  gap: 12px;
+  padding: 8px 4px;
+  color: var(--ink);
+  text-decoration: none;
+}
+.alert-list a:hover {
+  background: var(--ivory);
+}
+.alert-title {
+  flex: 1;
+}
+.alert-time {
+  color: var(--taupe);
+  font-size: 13px;
+}
+.severity {
+  font-size: 12px;
+  font-weight: bold;
+  padding: 1px 8px;
+  border-radius: 4px;
+  background: var(--sand);
+}
+.severity.HIGH {
+  background: var(--red);
+}
+.severity.LOW {
+  background: var(--green);
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+  gap: 16px;
+}
+.card {
+  background: var(--white);
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  padding: 14px 16px;
+}
+.card h3 {
+  margin: 0 0 6px;
+  font-size: 17px;
+}
+.card h3 a {
+  text-decoration: none;
+}
+.numbers {
+  margin: 0 0 10px;
+  padding-left: 18px;
+  color: var(--taupe);
+}
+.numbers strong {
+  color: var(--ink);
+}
+.chart {
+  position: relative;
+  height: 220px;
+}
+.chart.tall {
+  height: 300px;
+}
+
+td.ok {
+  background: var(--green);
+}
+td.down {
+  background: var(--red);
+}
+
+@media (max-width: 800px) {
+  form.entry {
+    grid-template-columns: 1fr;
+  }
+  main {
+    padding: 14px;
+  }
+}

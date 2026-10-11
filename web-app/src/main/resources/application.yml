@@ -1,0 +1,29 @@
+server:
+  port: 8000
+  servlet:
+    session:
+      cookie:
+        name: ECOFLOW_SESSION
+
+spring:
+  application:
+    name: web-app
+  thymeleaf:
+    cache: false
+  mvc:
+    format:
+      date: iso
+      time: iso
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,info
+
+app:
+  services:
+    user-service: ${USER_SERVICE_URL:http://localhost:8081}
+    water-service: ${WATER_SERVICE_URL:http://localhost:8082}
+    supply-service: ${SUPPLY_SERVICE_URL:http://localhost:8083}
+    operations-service: ${OPERATIONS_SERVICE_URL:http://localhost:8084}

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Alerts')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: topbar}"></header>
+<main>
+	<h1>Alerts</h1>
+	<p class="note">Write an alert for the other staff.</p>
+	<div th:replace="~{fragments/layout :: flash}"></div>
+
+	<h2>Add an alert</h2>
+	<form class="entry" th:action="@{/alerts}" method="post">
+		<label>Title <input name="title" required maxlength="120"></label>
+		<label>Severity
+			<select name="severity">
+				<option value="HIGH">HIGH</option>
+				<option value="MEDIUM" selected>MEDIUM</option>
+				<option value="LOW">LOW</option>
+			</select>
+		</label>
+		<label class="wide">Message <textarea name="message" rows="3" required maxlength="500"></textarea></label>
+		<div class="wide"><button type="submit">Save alert</button></div>
+	</form>
+
+	<h2>All alerts (newest first)</h2>
+	<div class="table-box">
+		<table>
+			<tr>
+				<th>ID</th>
+				<th>Title</th>
+				<th>Message</th>
+				<th>Severity</th>
+				<th>Created by</th>
+				<th>Created at</th>
+			</tr>
+			<tr th:each="a : ${alerts}">
+				<td th:text="${a.id}">1</td>
+				<td th:text="${a.title != null ? a.title : '-'}">Title</td>
+				<td th:text="${a.message != null ? a.message : '-'}">Message</td>
+				<td th:text="${a.severity != null ? a.severity : '-'}">HIGH</td>
+				<td th:text="${a.createdBy != null ? a.createdBy : '-'}">Name</td>
+				<td th:text="${a.createdAt != null ? #temporals.format(a.createdAt, 'dd-MM-yyyy HH:mm') : '-'}">10-10-2026 16:00</td>
+			</tr>
+		</table>
+	</div>
+	<p th:if="${#lists.isEmpty(alerts)}">No alerts yet.</p>
+</main>
+</body>
+</html>

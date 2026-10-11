@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head(${source.name})}"></head>
+<body>
+<header th:replace="~{fragments/layout :: topbar}"></header>
+<main>
+	<p><a th:href="@{/sources}">&larr; All water sources</a></p>
+	<h1 th:text="${source.name}">Vaigai</h1>
+	<div th:replace="~{fragments/layout :: flash}"></div>
+
+	<h2>Current level</h2>
+	<div class="table-box">
+		<table>
+			<tr>
+				<th>Type</th>
+				<th>District</th>
+				<th>Managed by</th>
+				<th>Capacity (ML)</th>
+				<th>Stored (ML)</th>
+				<th>Stored (%)</th>
+				<th>Availability</th>
+				<th>Inflow (ML/day)</th>
+				<th>Outflow (ML/day)</th>
+				<th>Days of water left</th>
+			</tr>
+			<tr>
+				<td th:text="${source.type != null ? source.type : '-'}">RESERVOIR</td>
+				<td th:text="${source.district != null ? source.district : '-'}">Theni</td>
+				<td th:text="${source.managedBy != null ? source.managedBy : '-'}">WRD</td>
+				<td th:text="${source.capacityMl != null ? source.capacityMl : '-'}">172477.6</td>
+				<td th:text="${source.storageMl != null ? source.storageMl : '-'}">24919.0</td>
+				<td th:text="${source.storagePercent != null ? source.storagePercent : '-'}">14.4</td>
+				<td th:text="${source.availability != null ? source.availability : '-'}">CRITICAL</td>
+				<td th:text="${source.inflowMld != null ? source.inflowMld : '-'}">51.4</td>
+				<td th:text="${source.outflowMld != null ? source.outflowMld : '-'}">146.8</td>
+				<td th:text="${source.daysOfSupply != null ? source.daysOfSupply : '-'}">169.7</td>
+			</tr>
+		</table>
+	</div>
+
+	<h2>Record a reading</h2>
+	<form class="entry" th:action="@{/sources/{id}/readings(id=${source.id})}" method="post">
+		<label>Date <input type="date" name="readingDate" th:value="${today}" th:max="${today}" required></label>
+		<label>Stored (ML) <input type="number" name="storageMl" step="0.1" min="0" required></label>
+		<label>Water level (m) <input type="number" name="waterLevelM" step="0.01"></label>
+		<label>Inflow (ML/day) <input type="number" name="inflowMld" step="0.1" min="0"></label>
+		<label>Outflow (ML/day) <input type="number" name="outflowMld" step="0.1" min="0"></label>
+		<label>Rainfall (mm) <input type="number" name="rainfallMm" step="0.1" min="0"></label>
+		<div class="wide"><button type="submit">Save reading</button></div>
+	</form>
+
+	<h2>Latest 30 readings (newest first)</h2>
+	<p class="note">Only the bulletin-day reading is official; the earlier days are sample history.</p>
+	<div class="table-box">
+		<table>
+			<tr>
+				<th>ID</th>
+				<th>Date</th>
+				<th>Water level (m)</th>
+				<th>Stored (ML)</th>
+				<th>Inflow (ML/day)</th>
+				<th>Outflow (ML/day)</th>
+				<th>Rainfall (mm)</th>
+			</tr>
+			<tr th:each="r : ${readings}">
+				<td th:text="${r.id}">1</td>
+				<td th:text="${r.readingDate != null ? r.readingDate : '-'}">2026-10-10</td>
+				<td th:text="${r.waterLevelM != null ? r.waterLevelM : '-'}">11.93</td>
+				<td th:text="${r.storageMl != null ? r.storageMl : '-'}">24919.0</td>
+				<td th:text="${r.inflowMld != null ? r.inflowMld : '-'}">51.4</td>
+				<td th:text="${r.outflowMld != null ? r.outflowMld : '-'}">146.8</td>
+				<td th:text="${r.rainfallMm != null ? r.rainfallMm : '-'}">0.0</td>
+			</tr>
+		</table>
+	</div>
+	<p th:if="${#lists.isEmpty(readings)}">No readings yet.</p>
+</main>
+</body>
+</html>

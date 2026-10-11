@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Complaints')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: topbar}"></header>
+<main>
+	<h1>Complaints and supply requests</h1>
+	<p class="note">Filed by citizens on the public Report page, or by staff here.</p>
+	<div th:replace="~{fragments/layout :: flash}"></div>
+
+	<h2>Register a complaint</h2>
+	<form class="entry" th:action="@{/complaints}" method="post">
+		<label>Category
+			<select name="category">
+				<option value="LEAKAGE">LEAKAGE</option>
+				<option value="NO_SUPPLY">NO_SUPPLY</option>
+				<option value="LOW_PRESSURE">LOW_PRESSURE</option>
+				<option value="QUALITY">QUALITY</option>
+				<option value="SUPPLY_REQUEST">SUPPLY_REQUEST</option>
+				<option value="OTHER">OTHER</option>
+			</select>
+		</label>
+		<label>Zone
+			<select name="zoneId" required>
+				<option th:each="z : ${zones}" th:value="${z.id}" th:text="${z.name}">Madurai Central</option>
+			</select>
+		</label>
+		<label>Citizen name <input name="citizenName" required maxlength="100"></label>
+		<label>Mobile number (10 digits) <input name="phone" required pattern="[0-9]{10}"></label>
+		<label>Address <input name="address" maxlength="200"></label>
+		<label class="wide">Description <textarea name="description" rows="2" required maxlength="500"></textarea></label>
+		<div class="wide"><button type="submit">Save complaint</button></div>
+	</form>
+
+	<h2>All complaints and requests (newest first)</h2>
+	<div class="table-box">
+		<table>
+			<tr>
+				<th>Ticket</th>
+				<th>Category</th>
+				<th>Description</th>
+				<th>Zone</th>
+				<th>Citizen</th>
+				<th>Priority</th>
+				<th>Status</th>
+				<th>Filed on</th>
+				<th>Details</th>
+			</tr>
+			<tr th:each="c : ${complaints}">
+				<td th:text="'#' + ${c.id}">#1</td>
+				<td th:text="${c.category != null ? c.category : '-'}">NO_SUPPLY</td>
+				<td th:text="${c.description != null ? c.description : '-'}">No water</td>
+				<td th:text="${zoneNames.get(c.zoneId) != null ? zoneNames.get(c.zoneId) : '-'}">Madurai Central</td>
+				<td th:text="${c.citizenName != null ? c.citizenName : '-'}">M. Arumugam</td>
+				<td th:text="${c.priority != null ? c.priority : '-'}">HIGH</td>
+				<td th:text="${c.status != null ? c.status : '-'}">OPEN</td>
+				<td th:text="${c.createdAt != null ? #temporals.format(c.createdAt, 'dd-MM-yyyy HH:mm') : '-'}">07-10-2026 18:22</td>
+				<td><a th:href="@{/complaints/{id}(id=${c.id})}">Open</a></td>
+			</tr>
+		</table>
+	</div>
+	<p th:if="${#lists.isEmpty(complaints)}">No complaints yet.</p>
+</main>
+</body>
+</html>

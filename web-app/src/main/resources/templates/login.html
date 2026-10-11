@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Sign in')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: topbar}"></header>
+<main>
+	<h1>Staff sign in</h1>
+	<p class="note">EcoFlow - water resource management for Tamil Nadu.</p>
+
+	<p class="error" th:if="${param.error != null}">Invalid username or password (or a service is not running).</p>
+	<p class="success" th:if="${param.logout != null}">You have been signed out.</p>
+
+	<form class="entry" th:action="@{/login}" method="post" style="max-width:420px; grid-template-columns:1fr">
+		<label>Username <input type="text" name="username" required autofocus></label>
+		<label>Password <input type="password" name="password" required></label>
+		<div><button type="submit">Sign in</button></div>
+	</form>
+	<p class="note">Demo accounts: admin / admin123 (admin) and staff / staff123 (officer).</p>
+	<p>Not staff? <a th:href="@{/report}">Report a water issue</a> or <a th:href="@{/track}">track your ticket</a>.</p>
+</main>
+</body>
+</html>

@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Water quality')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: topbar}"></header>
+<main>
+	<h1>Water quality</h1>
+	<p class="note">Water quality status based on chemical and microbiological indicators.</p>
+	<div th:replace="~{fragments/layout :: flash}"></div>
+
+	<h2>Record a lab test</h2>
+	<form class="entry" th:action="@{/quality}" method="post">
+		<label>Source
+			<select name="sourceId" required>
+				<option th:each="s : ${sources}" th:value="${s.id}" th:text="${s.name}">Vaigai</option>
+			</select>
+		</label>
+		<label>Tested on <input type="date" name="testedOn" th:value="${today}" th:max="${today}" required></label>
+		<label>Lab name <input name="labName"></label>
+		<label>pH <input type="number" name="ph" step="0.01" min="0" max="14" required></label>
+		<label>Dissolved oxygen (mg/L) <input type="number" name="dissolvedOxygen" step="0.01" min="0" required></label>
+		<label>BOD (mg/L) <input type="number" name="bod" step="0.01" min="0" required></label>
+		<label>Total coliform (MPN/100 mL) <input type="number" name="totalColiform" step="1" min="0"></label>
+		<label>Turbidity (NTU) <input type="number" name="turbidity" step="0.01" min="0"></label>
+		<label>TDS (mg/L) <input type="number" name="tds" step="1" min="0"></label>
+		<label class="wide">Remarks <input name="remarks"></label>
+		<div class="wide"><button type="submit">Save test</button></div>
+	</form>
+
+	<h2>All quality tests (newest first)</h2>
+	<div class="table-box">
+		<table>
+			<tr>
+				<th>ID</th>
+				<th>Source</th>
+				<th>Tested on</th>
+				<th>pH</th>
+				<th>DO (mg/L)</th>
+				<th>BOD (mg/L)</th>
+				<th>Coliform</th>
+				<th>Turbidity</th>
+				<th>TDS</th>
+				<th>Result</th>
+				<th>Lab</th>
+				<th>Remarks</th>
+			</tr>
+			<tr th:each="t : ${tests}">
+				<td th:text="${t.id}">1</td>
+				<td th:text="${t.sourceName != null ? t.sourceName : '-'}">Veeranam</td>
+				<td th:text="${t.testedOn != null ? t.testedOn : '-'}">2026-10-05</td>
+				<td th:text="${t.ph != null ? t.ph : '-'}">8.3</td>
+				<td th:text="${t.dissolvedOxygen != null ? t.dissolvedOxygen : '-'}">5.5</td>
+				<td th:text="${t.bod != null ? t.bod : '-'}">8.0</td>
+				<td th:text="${t.totalColiform != null ? t.totalColiform : '-'}">33.0</td>
+				<td th:text="${t.turbidity != null ? t.turbidity : '-'}">0.82</td>
+				<td th:text="${t.tds != null ? t.tds : '-'}">740.0</td>
+				<td th:text="${t.result != null ? t.result : '-'}">FAIL</td>
+				<td th:text="${t.labName != null ? t.labName : '-'}">TNPCB</td>
+				<td th:text="${t.remarks != null ? t.remarks : '-'}">remarks</td>
+			</tr>
+		</table>
+	</div>
+	<p th:if="${#lists.isEmpty(tests)}">No tests yet.</p>
+</main>
+</body>
+</html>

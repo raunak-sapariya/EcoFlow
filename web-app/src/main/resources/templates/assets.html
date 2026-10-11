@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Infrastructure')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: topbar}"></header>
+<main>
+	<h1>Infrastructure</h1>
+	<p class="note">Manage water assets and track their condition and status.</p>
+	<div th:replace="~{fragments/layout :: flash}"></div>
+
+	<h2>Add an asset</h2>
+	<form class="entry" th:action="@{/assets}" method="post">
+		<label>Name <input name="name" required></label>
+		<label>Type
+			<select name="type">
+				<option value="PUMP">PUMP</option>
+				<option value="PIPELINE">PIPELINE</option>
+				<option value="TREATMENT_PLANT">TREATMENT_PLANT</option>
+				<option value="TANK">TANK</option>
+				<option value="VALVE">VALVE</option>
+			</select>
+		</label>
+		<label>Zone
+			<select name="zoneId" required>
+				<option th:each="z : ${zones}" th:value="${z.id}" th:text="${z.name}">Madurai Central</option>
+			</select>
+		</label>
+		<label>Installed on <input type="date" name="installDate"></label>
+		<label>Condition
+			<select name="condition">
+				<option value="GOOD">GOOD</option>
+				<option value="FAIR">FAIR</option>
+				<option value="POOR">POOR</option>
+			</select>
+		</label>
+		<label>Status
+			<select name="status">
+				<option value="WORKING">WORKING</option>
+				<option value="FAULTY">FAULTY</option>
+				<option value="UNDER_REPAIR">UNDER_REPAIR</option>
+			</select>
+		</label>
+		<div class="wide"><button type="submit">Save asset</button></div>
+	</form>
+
+	<h2>All assets (newest first)</h2>
+	<div class="table-box">
+		<table>
+			<tr>
+				<th>ID</th>
+				<th>Name</th>
+				<th>Type</th>
+				<th>Zone</th>
+				<th>Installed on</th>
+				<th>Condition</th>
+				<th>Status</th>
+			</tr>
+			<tr th:each="a : ${assets}">
+				<td th:text="${a.id}">1</td>
+				<td th:text="${a.name != null ? a.name : '-'}">Vaigai Head Works</td>
+				<td th:text="${a.type != null ? a.type : '-'}">PUMP</td>
+				<td th:text="${zoneNames.get(a.zoneId) != null ? zoneNames.get(a.zoneId) : '-'}">Madurai Central</td>
+				<td th:text="${a.installDate != null ? a.installDate : '-'}">2009-04-01</td>
+				<td th:text="${a.condition != null ? a.condition : '-'}">POOR</td>
+				<td th:text="${a.status != null ? a.status : '-'}">FAULTY</td>
+			</tr>
+		</table>
+	</div>
+	<p th:if="${#lists.isEmpty(assets)}">No assets yet.</p>
+</main>
+</body>
+</html>

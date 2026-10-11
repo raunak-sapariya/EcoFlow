@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Maintenance')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: topbar}"></header>
+<main>
+	<h1>Maintenance</h1>
+	<p class="note">Planned maintenances and faults being fixed.</p>
+	<div th:replace="~{fragments/layout :: flash}"></div>
+
+	<h2>Add a maintenance task</h2>
+	<form class="entry" th:action="@{/maintenance}" method="post">
+		<label>Asset
+			<select name="assetId" required>
+				<option th:each="a : ${assets}" th:value="${a.id}" th:text="${a.name}">Vaigai Head Works</option>
+			</select>
+		</label>
+		<label>Type
+			<select name="type">
+				<option value="PREVENTIVE">PREVENTIVE</option>
+				<option value="REPAIR">REPAIR</option>
+			</select>
+		</label>
+		<label>Date <input type="date" name="scheduledDate" th:value="${today}" required></label>
+		<label class="wide">What needs to be done <input name="description" required maxlength="300"></label>
+		<label>Technician / contractor <input name="technician"></label>
+		<label>Cost (Rs) <input type="number" name="cost" min="0" step="100"></label>
+		<div class="wide"><button type="submit">Save task</button></div>
+	</form>
+
+	<h2>All maintenance tasks (newest first)</h2>
+	<div class="table-box">
+		<table>
+			<tr>
+				<th>ID</th>
+				<th>Asset</th>
+				<th>Type</th>
+				<th>Work</th>
+				<th>Date</th>
+				<th>Technician</th>
+				<th>Cost (Rs)</th>
+				<th>Status</th>
+				<th>Completed on</th>
+				<th>Action</th>
+			</tr>
+			<tr th:each="t : ${tasks}">
+				<td th:text="${t.id}">1</td>
+				<td th:text="${t.assetName != null ? t.assetName : '-'}">Vaigai Head Works</td>
+				<td th:text="${t.type != null ? t.type : '-'}">REPAIR</td>
+				<td th:text="${t.description != null ? t.description : '-'}">Motor winding burnt</td>
+				<td th:text="${t.scheduledDate != null ? t.scheduledDate : '-'}">2026-10-07</td>
+				<td th:text="${t.technician != null ? t.technician : '-'}">TWAD</td>
+				<td th:text="${t.cost != null ? t.cost : '-'}">185000.0</td>
+				<td th:text="${t.status != null ? t.status : '-'}">IN_PROGRESS</td>
+				<td th:text="${t.completedDate != null ? t.completedDate : '-'}">-</td>
+				<td>
+					<form th:if="${t.status != 'DONE'}" th:action="@{/maintenance/{id}/done(id=${t.id})}" method="post">
+						<button type="submit">Mark done</button>
+					</form>
+					<span th:if="${t.status == 'DONE'}">-</span>
+				</td>
+			</tr>
+		</table>
+	</div>
+	<p th:if="${#lists.isEmpty(tasks)}">No maintenance tasks yet.</p>
+</main>
+</body>
+</html>

@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Dashboard')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: topbar}"></header>
+<main>
+	<h1>Dashboard</h1>
+	<p class="note"></p>
+
+	<div class="alerts-box">
+		<div class="box-head">
+			<h2>Latest alerts</h2>
+			<a th:href="@{/alerts}">See more &rarr;</a>
+		</div>
+		<ul class="alert-list">
+			<li th:each="a : ${alerts}">
+				<a th:href="@{/alerts}">
+					<span class="severity" th:classappend="${a.severity}" th:text="${a.severity != null ? a.severity : '-'}">HIGH</span>
+					<span class="alert-title" th:text="${a.title != null ? a.title : '-'}">Vaigai below 15 %</span>
+					<span class="alert-time" th:text="${a.createdAt != null ? #temporals.format(a.createdAt, 'dd-MM-yyyy HH:mm') : '-'}">10-10-2026 18:33</span>
+				</a>
+			</li>
+		</ul>
+		<p th:if="${#lists.isEmpty(alerts)}">No alerts yet.</p>
+	</div>
+
+	<div class="cards">
+
+		<div class="card">
+			<h3><a th:href="@{/sources}">Water sources</a></h3>
+			<ul class="numbers">
+				<li><strong th:text="${water != null ? water.sourceCount : '-'}">23</strong> sources</li>
+				<li><strong th:text="${water != null ? water.storagePercent + ' %' : '-'}">21.9 %</strong> water stored</li>
+				<li><strong th:text="${water != null ? water.criticalCount : '-'}">10</strong> critical (below 30 %)</li>
+			</ul>
+			<div class="chart"><canvas id="sourcesChart"></canvas></div>
+		</div>
+
+		<div class="card">
+			<h3><a th:href="@{/quality}">Water quality</a></h3>
+			<ul class="numbers">
+				<li><strong th:text="${water != null ? water.compliancePercent + ' %' : '-'}">93.3 %</strong> of tested sources pass</li>
+				<li>Latest test of each source</li>
+			</ul>
+			<div class="chart"><canvas id="qualityChart"></canvas></div>
+		</div>
+
+		<div class="card">
+			<h3><a th:href="@{/zones}">Supply zones</a></h3>
+			<ul class="numbers">
+				<li><strong th:text="${supply != null ? supply.zoneCount : '-'}">14</strong> zones</li>
+				<li><strong th:text="${supply != null ? supply.population : '-'}">5638000</strong> people</li>
+				<li><strong th:text="${supply != null ? supply.dailyDemandMl + ' ML' : '-'}">761.2 ML</strong> demand per day</li>
+			</ul>
+			<div class="chart tall"><canvas id="zonesChart"></canvas></div>
+		</div>
+
+		<div class="card">
+			<h3><a th:href="@{/usage}">Water usage</a></h3>
+			<ul class="numbers">
+				<li><strong th:text="${usageTotal != null ? usageTotal + ' ML' : '-'}">17171 ML</strong> used in
+					<span th:text="${supply != null ? #temporals.format(supply.usageMonth, 'MMM yyyy') : '-'}">Sep 2026</span></li>
+				<li>By category</li>
+			</ul>
+			<div class="chart"><canvas id="usageChart"></canvas></div>
+		</div>
+
+		<div class="card">
+			<h3><a th:href="@{/schedules}">Distribution</a></h3>
+			<ul class="numbers">
+				<li><strong th:text="${supply != null ? supply.allocatedTodayMl + ' ML' : '-'}">578.8 ML</strong> planned today</li>
+				<li><strong th:text="${supply != null ? supply.cyclesToday : '-'}">14</strong> supply cycles today</li>
+			</ul>
+			<div class="chart"><canvas id="supplyChart"></canvas></div>
+		</div>
+
+		<div class="card">
+			<h3><a th:href="@{/assets}">Infrastructure</a></h3>
+			<ul class="numbers">
+				<li><strong th:text="${ops != null ? ops.assetCount : '-'}">25</strong> assets</li>
+				<li><strong th:text="${ops != null ? ops.assetsNotWorking : '-'}">6</strong> not working</li>
+			</ul>
+			<div class="chart"><canvas id="assetsChart"></canvas></div>
+		</div>
+
+		<div class="card">
+			<h3><a th:href="@{/maintenance}">Maintenance</a></h3>
+			<ul class="numbers">
+				<li><strong th:text="${ops != null ? ops.maintenanceOpen : '-'}">10</strong> open tasks</li>
+				<li><strong th:text="${ops != null ? ops.maintenanceOverdue : '-'}">4</strong> overdue</li>
+			</ul>
+			<div class="chart"><canvas id="tasksChart"></canvas></div>
+		</div>
+
+		<div class="card">
+			<h3><a th:href="@{/complaints}">Complaints &amp; requests</a></h3>
+			<ul class="numbers">
+				<li><strong th:text="${ops != null ? ops.complaintsOpen : '-'}">19</strong> open</li>
+				<li><strong th:text="${ops != null ? ops.supplyRequestsOpen : '-'}">5</strong> water-supply requests</li>
+			</ul>
+			<div class="chart"><canvas id="complaintsChart"></canvas></div>
+		</div>
+
+	</div>
+</main>
+
+<script th:src="@{/webjars/chart.js/4.4.8/dist/chart.umd.js}"></script>
+<script th:src="@{/js/charts.js}"></script>
+<script th:inline="javascript">
+	/*
+		Water sources         - doughnutChart   - sourcesByAvailability
+		Water quality         - doughnutChart   - sourcesByQuality
+		Supply zones          - barChart        - zoneNames, zoneDemand
+		Water usage           - countsBarChart  - supply.usageByCategory
+		Distribution          - twoBarChart     - supplyDays, supplyPlanned, supplySupplied
+		Infrastructure        - doughnutChart   - assetsByStatus
+		Maintenance           - countsBarChart  - tasksByStatus
+		Complaints & requests - countsBarChart  - openComplaintsByCategory
+	*/
+	doughnutChart('sourcesChart', /*[[${sourcesByAvailability}]]*/ null);
+	doughnutChart('qualityChart', /*[[${sourcesByQuality}]]*/ null);
+	barChart('zonesChart', /*[[${zoneNames}]]*/ null, /*[[${zoneDemand}]]*/ null, 'Demand (ML/day)', true);
+	countsBarChart('usageChart', /*[[${supply != null ? supply.usageByCategory : null}]]*/ null, 'Usage (ML)');
+	twoBarChart('supplyChart', /*[[${supplyDays}]]*/ null, /*[[${supplyPlanned}]]*/ null, 'Planned (ML)', /*[[${supplySupplied}]]*/ null, 'Supplied (ML)');
+	doughnutChart('assetsChart', /*[[${assetsByStatus}]]*/ null);
+	countsBarChart('tasksChart', /*[[${tasksByStatus}]]*/ null, 'Tasks');
+	countsBarChart('complaintsChart', /*[[${openComplaintsByCategory}]]*/ null, 'Open tickets');
+</script>
+</body>
+</html>

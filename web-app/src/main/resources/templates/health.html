@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Service health')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: topbar}"></header>
+<main>
+	<h1>Service health</h1>
+	<p class="note">The web-app asks each microservice's <code>/actuator/health</code>. A service that does not answer within
+		a few seconds is shown as not running.</p>
+
+	<form th:action="@{/health}" method="get">
+		<button type="submit">Check again</button>
+	</form>
+
+	<h2 th:text="${running} + ' of ' + ${#lists.size(services)} + ' services running'">4 of 4 services running</h2>
+	<div class="table-box">
+		<table>
+			<tr>
+				<th>Service</th>
+				<th>Address</th>
+				<th>Manages</th>
+				<th>Status</th>
+				<th>Response time</th>
+			</tr>
+			<tr>
+				<td>web-app</td>
+				<td>this website</td>
+				<td>Pages, login</td>
+				<td class="ok">Running</td>
+				<td>-</td>
+			</tr>
+			<tr th:each="s : ${services}">
+				<td th:text="${s.name}">water-service</td>
+				<td th:text="${s.url != null ? s.url : '-'}">http://localhost:8082</td>
+				<td th:text="${s.manages}">Water sources</td>
+				<td th:text="${s.up ? 'Running' : 'Not running'}" th:class="${s.up ? 'ok' : 'down'}">Running</td>
+				<td th:text="${s.up ? s.responseMs + ' ms' : '-'}">12 ms</td>
+			</tr>
+		</table>
+	</div>
+	<p class="note" th:text="'Checked at ' + ${#temporals.format(checkedAt, 'dd-MM-yyyy HH:mm:ss')}">Checked at</p>
+</main>
+</body>
+</html>

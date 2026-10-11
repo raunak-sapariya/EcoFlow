@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Ticket #' + ${c.id})}"></head>
+<body>
+<header th:replace="~{fragments/layout :: topbar}"></header>
+<main>
+	<p><a th:href="@{/complaints}">&larr; All complaints</a></p>
+	<h1 th:text="'Ticket #' + ${c.id}">Ticket #1</h1>
+	<div th:replace="~{fragments/layout :: flash}"></div>
+
+	<h2>Update the ticket</h2>
+	<form class="entry" th:action="@{/complaints/{id}(id=${c.id})}" method="post">
+		<label>Status
+			<select name="status">
+				<option value="OPEN" th:selected="${c.status == 'OPEN'}">OPEN</option>
+				<option value="IN_PROGRESS" th:selected="${c.status == 'IN_PROGRESS'}">IN_PROGRESS</option>
+				<option value="RESOLVED" th:selected="${c.status == 'RESOLVED'}">RESOLVED</option>
+			</select>
+		</label>
+		<label>Priority
+			<select name="priority">
+				<option value="HIGH" th:selected="${c.priority == 'HIGH'}">HIGH</option>
+				<option value="MEDIUM" th:selected="${c.priority == 'MEDIUM'}">MEDIUM</option>
+				<option value="LOW" th:selected="${c.priority == 'LOW'}">LOW</option>
+			</select>
+		</label>
+		<label class="wide">Resolution note (required to resolve)
+			<textarea name="resolutionNote" rows="2" maxlength="300" th:text="${c.resolutionNote}"></textarea>
+		</label>
+		<div class="wide"><button type="submit">Save</button></div>
+	</form>
+
+	<h2>Ticket details</h2>
+	<div class="table-box">
+		<table>
+			<tr><th>Category</th><td th:text="${c.category != null ? c.category : '-'}">NO_SUPPLY</td></tr>
+			<tr><th>Description</th><td th:text="${c.description != null ? c.description : '-'}">No water</td></tr>
+			<tr><th>Zone</th><td th:text="${zoneName != null ? zoneName : '-'}">Madurai Central</td></tr>
+			<tr><th>Affected asset</th><td th:text="${c.assetName != null ? c.assetName : '-'}">-</td></tr>
+			<tr><th>Citizen</th><td th:text="${c.citizenName != null ? c.citizenName : '-'}">M. Arumugam</td></tr>
+			<tr><th>Mobile</th><td th:text="${c.phone != null ? c.phone : '-'}">9000000101</td></tr>
+			<tr><th>Address</th><td th:text="${c.address != null ? c.address : '-'}">address</td></tr>
+			<tr><th>Priority</th><td th:text="${c.priority != null ? c.priority : '-'}">HIGH</td></tr>
+			<tr><th>Status</th><td th:text="${c.status != null ? c.status : '-'}">OPEN</td></tr>
+			<tr><th>Filed on</th><td th:text="${c.createdAt != null ? #temporals.format(c.createdAt, 'dd-MM-yyyy HH:mm') : '-'}">07-10-2026 18:22</td></tr>
+			<tr><th>Resolved on</th><td th:text="${c.resolvedAt != null ? #temporals.format(c.resolvedAt, 'dd-MM-yyyy HH:mm') : '-'}">-</td></tr>
+			<tr><th>Resolution note</th><td th:text="${c.resolutionNote != null ? c.resolutionNote : '-'}">-</td></tr>
+		</table>
+	</div>
+</main>
+</body>
+</html>

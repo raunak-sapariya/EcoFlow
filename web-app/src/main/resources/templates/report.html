@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/layout :: head('Report a water issue')}"></head>
+<body>
+<header th:replace="~{fragments/layout :: topbar}"></header>
+<main>
+	<h1>Report a water issue or request water</h1>
+	<p class="note">No account needed. You get a ticket number; use it with your mobile number on the
+		<a th:href="@{/track}">Track</a> page.</p>
+	<div th:replace="~{fragments/layout :: flash}"></div>
+
+	<h2>Your report</h2>
+	<form class="entry" th:action="@{/report}" method="post">
+		<label>What is it about?
+			<select name="category">
+				<option value="LEAKAGE">Leakage</option>
+				<option value="NO_SUPPLY">No supply</option>
+				<option value="LOW_PRESSURE">Low pressure</option>
+				<option value="QUALITY">Dirty / smelly water</option>
+				<option value="SUPPLY_REQUEST">Request water (tanker / new connection)</option>
+				<option value="OTHER">Other</option>
+			</select>
+		</label>
+		<label>Your area
+			<select name="zoneId" required>
+				<option th:each="z : ${zones}" th:value="${z.id}" th:text="${z.name} + ', ' + ${z.city}">Madurai Central</option>
+			</select>
+		</label>
+		<label>Your name <input name="citizenName" required maxlength="100"></label>
+		<label>Mobile number (10 digits) <input name="phone" required pattern="[0-9]{10}"></label>
+		<label>Address / landmark <input name="address" maxlength="200"></label>
+		<label class="wide">Describe the problem <textarea name="description" rows="3" required maxlength="500"></textarea></label>
+		<div class="wide"><button type="submit">Submit</button></div>
+	</form>
+
+	<h2>Recent tickets (newest first)</h2>
+	<p class="note">Names and phone numbers are not shown here.</p>
+	<div class="table-box">
+		<table>
+			<tr>
+				<th>Ticket</th>
+				<th>Category</th>
+				<th>Area</th>
+				<th>Status</th>
+				<th>Filed on</th>
+			</tr>
+			<tr th:each="c : ${recent}">
+				<td th:text="'#' + ${c.id}">#1</td>
+				<td th:text="${c.category != null ? c.category : '-'}">LEAKAGE</td>
+				<td th:text="${zoneNames.get(c.zoneId) != null ? zoneNames.get(c.zoneId) : '-'}">Madurai Central</td>
+				<td th:text="${c.status != null ? c.status : '-'}">OPEN</td>
+				<td th:text="${c.createdAt != null ? #temporals.format(c.createdAt, 'dd-MM-yyyy HH:mm') : '-'}">07-10-2026 18:22</td>
+			</tr>
+		</table>
+	</div>
+	<p th:if="${#lists.isEmpty(recent)}">No tickets yet.</p>
+</main>
+</body>
+</html>
